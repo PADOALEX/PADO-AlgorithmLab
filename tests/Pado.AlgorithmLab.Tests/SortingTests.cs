@@ -111,5 +111,38 @@ public sealed class SortingTests
         Assert.Throws<ArgumentException>(() => SortCatalog.Create<int>("unknown"));
     }
 
+
+    [Theory]
+    [InlineData("selection", 4950L, 98L, 294L)]
+    [InlineData("shell", 810L, 358L, 1074L)]
+    [InlineData("merge", 539L, 0L, 1344L)]
+    public void OriginalRandom100_HasExactlyTheSourceLabsOperationCounts(
+        string name, long comparisons, long swaps, long moves)
+    {
+        var values = DatasetFactory.Create(100, DataOrder.Random);
+        var metrics = new SortMetrics();
+        SortCatalog.Create<int>(name).Sort(values, metrics);
+        Assert.Equal(comparisons, metrics.Comparisons);
+        Assert.Equal(swaps, metrics.Swaps);
+        Assert.Equal(moves, metrics.Moves);
+        for (var i = 1; i < values.Length; i++)
+            Assert.True(values[i - 1] <= values[i]);
+    }
+
+    [Theory]
+    [InlineData("selection", 499500L, 993L, 2979L)]
+    [InlineData("shell", 15451L, 7945L, 23835L)]
+    [InlineData("merge", 8682L, 0L, 19952L)]
+    public void OriginalRandom1000_HasExactlyTheSourceLabsOperationCounts(
+        string name, long comparisons, long swaps, long moves)
+    {
+        var values = DatasetFactory.Create(1000, DataOrder.Random);
+        var metrics = new SortMetrics();
+        SortCatalog.Create<int>(name).Sort(values, metrics);
+        Assert.Equal(comparisons, metrics.Comparisons);
+        Assert.Equal(swaps, metrics.Swaps);
+        Assert.Equal(moves, metrics.Moves);
+    }
+
     private readonly record struct Item(int Key, int Id);
 }
