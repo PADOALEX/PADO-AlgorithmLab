@@ -10,6 +10,14 @@ public static class DatasetFactory
         if (size < 0) throw new ArgumentOutOfRangeException(nameof(size));
         var items = new int[size];
         var state = seed == 0 ? 1u : seed;
+        // The source lab used one LCG across 100, 1000 and 10000 elements.
+        // Skip earlier input sizes so these datasets match the original text files.
+        if (order == DataOrder.Random)
+        {
+            var skip = size == 1000 ? 100 : size == 10000 ? 1100 : 0;
+            for (var i = 0; i < skip; i++)
+                state = unchecked(1664525u * state + 1013904223u);
+        }
         for (var i = 0; i < size; i++)
         {
             switch (order)
