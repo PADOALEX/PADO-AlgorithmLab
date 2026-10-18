@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Pado.AlgorithmLab.DataStructures/Pado.AlgorithmLab.DataStructures.csproj" />
+    <ProjectReference Include="../Pado.AlgorithmLab.Sorting/Pado.AlgorithmLab.Sorting.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/Pado.AlgorithmLab.DataStructures/Pado.AlgorithmLab.DataStructures.csproj" />
+    <Project Path="src/Pado.AlgorithmLab.Sorting/Pado.AlgorithmLab.Sorting.csproj" />
+    <Project Path="src/Pado.AlgorithmLab.Cli/Pado.AlgorithmLab.Cli.csproj" />
+    <Project Path="src/Pado.AlgorithmLab.Benchmarks/Pado.AlgorithmLab.Benchmarks.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Pado.AlgorithmLab.Tests/Pado.AlgorithmLab.Tests.csproj" />
+  </Folder>
+</Solution>

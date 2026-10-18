@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+.vs/
+.vscode/
+.idea/
+TestResults/
+BenchmarkDotNet.Artifacts/
+**/Results/
+*.user
+*.suo
+*.tmp
+.DS_Store
