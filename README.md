@@ -103,7 +103,7 @@ dotnet run --project src/Pado.AlgorithmLab.Benchmarks -c Release -- --filter '*S
 
 Run in Release without a debugger, preferably when the machine is idle. In PowerShell, keep the asterisks inside single quotes. This suite has **27 parameter combinations** and can take time, particularly Selection Sort on 10,000 elements. The [benchmark workflow](.github/workflows/benchmarks.yml) can run it on a GitHub-hosted runner and keep CSV/log artifacts.
 
-**Measurement integrity:** this README does not invent BenchmarkDotNet numbers. [Historical original manual measurements](docs/HISTORICAL_RESULTS.md) show real figures from the supplied Windows lab archive; they were measured using the *previous* implementation and must not be represented as fresh runs. New BenchmarkDotNet output should be generated from the current commit, with its environment recorded.
+**Real benchmark measurements:** the [GitHub Actions benchmark run](https://github.com/PADOALEX/PADO-AlgorithmLab/actions/runs/39146417500) completed all 27 cases on 18 October 2026 (.NET 10.0.13, Ubuntu). For **random inputs, N=10,000**, it reported approximately **66.52 ms Selection**, **1.27 ms Shell** and **3.93 ms Merge** (one run; results include experimental noise). See the permanent [full 27-row BenchmarkDotNet table](docs/BENCHMARK_RESULTS_2026-10-18.md) with the commit, environment, allocation data and uncertainty. Archived [Windows lab timings](docs/HISTORICAL_RESULTS.md) are retained separately, not passed off as fresh BenchmarkDotNet results.
 
 ## Source and quality
 

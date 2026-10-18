@@ -182,4 +182,44 @@ public sealed class DoublyLinkedListTests
         }
         Assert.Equal(1093, cases);
     }
+
+    [Fact]
+    public void RandomMutationSequence_MatchesFrameworkReferenceList()
+    {
+        // Only tests use the framework collection as a control oracle.
+        var random = new Random(907);
+        var actual = new DoublyLinkedList<int>();
+        var expected = new LinkedList<int>();
+        for (var step = 0; step < 1500; step++)
+        {
+            var action = random.Next(5);
+            var value = random.Next(-5, 6);
+            switch (action)
+            {
+                case 0:
+                    actual.AddFirst(value);
+                    expected.AddFirst(value);
+                    break;
+                case 1:
+                    actual.AddLast(value);
+                    expected.AddLast(value);
+                    break;
+                case 2 when expected.Count > 0:
+                    Assert.Equal(expected.First!.Value, actual.RemoveFirst());
+                    expected.RemoveFirst();
+                    break;
+                case 3 when expected.Count > 0:
+                    Assert.Equal(expected.Last!.Value, actual.RemoveLast());
+                    expected.RemoveLast();
+                    break;
+                case 4:
+                    Assert.Equal(expected.Remove(value), actual.Remove(value));
+                    break;
+            }
+            actual.AssertInvariants();
+            Assert.Equal(expected.ToArray(), actual.ToArray());
+            Assert.Equal(expected.Count, actual.Count);
+        }
+    }
+
 }
