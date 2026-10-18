@@ -1,0 +1,30 @@
+name: BenchmarkDotNet results
+
+on:
+  push:
+    paths:
+      - '.github/workflows/benchmarks.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: '10.0.x'
+      - name: Run all 27 benchmarks
+        run: dotnet run --project src/Pado.AlgorithmLab.Benchmarks -c Release -- --filter '*SortingBenchmarks*' --artifacts ./BenchmarkDotNet.Artifacts --exporters csv markdown
+      - name: Upload benchmark reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: algorithm-lab-benchmarks
+          path: BenchmarkDotNet.Artifacts/
+          retention-days: 30
+          if-no-files-found: warn
